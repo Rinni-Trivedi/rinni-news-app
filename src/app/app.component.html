@@ -1,1 +1,35 @@
-<p> Hello </p>
+<div class="ui fixed borderless menu">
+
+  <div class="ui container text center aligned">
+    <div style="text-align:center">
+      <h2>Latest news headlines</h2>
+    </div>
+  </div>
+
+</div>
+
+<div class="ui divider"></div>
+
+<div class="ui container main">
+
+  <div class="ui grid">
+    <div class="four wide column">
+      <app-sources-list (selectedSource)="onSelectedSource($event)"></app-sources-list>
+    </div>
+    <div class="twelve wide column">
+      <ng-container *ngIf="!selectedSource">
+        <div class="ui info message">
+          <div class="header">
+            Welcome to News App!
+          </div>
+          <p>Select a news source from the list to view latest headlines for that source.</p>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="selectedSource">
+        <app-articles-list [source]="selectedSource"></app-articles-list>
+      </ng-container>
+    </div>
+  </div>
+
+</div>

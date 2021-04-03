@@ -1,18 +1,28 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { AppRoutingModule } from './app-routing.module';
+import { SHARED_SERVICES, AuthInterceptorService } from './shared/services';
+import { SHARED_COMPONENTS } from './shared/components';
+
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SHARED_COMPONENTS
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    HttpClientModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptorService,
+    multi: true,
+  },
+    SHARED_SERVICES],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
